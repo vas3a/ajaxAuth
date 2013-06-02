@@ -2,13 +2,15 @@ parameters:
     smth_ajax_auth.handler.class: Smth\AjaxAuthBundle\Security\Authentication\AuthenticationHandler
     smth_ajax_auth.facebook_connector.class: Smth\AjaxAuthBundle\Connector\FacebookConnector
     smth_ajax_auth.google_connector.class: Smth\AjaxAuthBundle\Connector\GoogleConnector
+    smth.security.authentication.class: Smth\AjaxAuthBundle\Security\Authentication\UserAuthentication
 services:
     smth_ajax_auth.handler:
         class:  %smth_ajax_auth.handler.class%
         arguments:  [@router]
         tags:
             - { name: 'monolog.logger', channel: 'security' }
-#Twig Extension
+            - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLoginEvent }
+# Twig Extension
     extension.twig.ajax_auth:
         class: Smth\AjaxAuthBundle\Extension\AjaxAuthTwigExtension
         arguments: [@router]
@@ -19,3 +21,8 @@ services:
         class: %smth_ajax_auth.facebook_connector.class%
     smth_ajax_auth.connector.google:
         class: %smth_ajax_auth.google_connector.class%
+# Authentication Helper
+    smth.security.authentication:
+        class: %smth.security.authentication.class%
+        calls:
+            - [setContainer, [@service_container]]

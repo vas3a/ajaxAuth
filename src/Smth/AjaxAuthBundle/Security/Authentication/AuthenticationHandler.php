@@ -1,6 +1,7 @@
 <?php
 namespace Smth\AjaxAuthBundle\Security\Authentication;
- 
+
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent; 
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
@@ -23,6 +24,12 @@ implements AuthenticationSuccessHandlerInterface,
 		$this->router = $router;
 	}
  
+	public function onInteractiveLoginEvent(InteractiveLoginEvent $event)
+	{
+		return $event->response = 
+			$this->onAuthenticationSuccess($event->getRequest(), $event->getAuthenticationToken());
+	}
+
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token)
 	{
 		if ($targetPath = $request->getSession()->get('_security.target_path'))

@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="user")
  * @ORM\Entity(repositoryClass="Smth\AjaxAuthBundle\Entity\UserRepository")
  */
-class User implements UserInterface, EquatableInterface
+class User implements UserInterface, EquatableInterface, \Serializable
 {
     /**
      * @var integer
@@ -191,5 +191,25 @@ class User implements UserInterface, EquatableInterface
     
     public function isEqualTo(UserInterface $user){
         return $user->getId() === $this->getId();
+    }
+    
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+        ) = unserialize($serialized);
     }
 }
