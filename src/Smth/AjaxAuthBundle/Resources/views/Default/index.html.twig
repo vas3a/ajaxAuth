@@ -3,24 +3,17 @@
 	<title>Welcome</title>
 </head>
 <body>
-	<form action="{{ path('_ajax_auth_check') }}" method="post">
+	<form action="{{ path('_ajax_auth_check') }}" method="post" id="ajax-login">
 		<input name="_username" placeholder="Username" type="text" />
 		<br />
 		<input name="_password" placeholder="Password" type="password" />
-		<input name="_remember_me" value="true" type="hidden" />
 		<br />
 		<input name="_login" valuse="Login" type="submit" />
 		<br />
 	</form>
+	<div id="ajax-fb-btn">Facebook Login Here</div>
+	<div id="ajax-g-btn">GooglePlus Login Here</div>
 </body>
 </html>
 <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-{% javascripts output="js/form-auth.js" filter="coffee"
-    '@AjaxAuthBundle/Resources/public/js/form.coffee'
-%}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
-    <script type="text/javascript">
-    // $(document).ready(function(){new AjaxAuthForm($('form'));});
-    // console.log('asadasd');
-    </script>
-{% endjavascripts %}
+{{ AjaxAuthScript({'facebook':'126231267555748', 'google':'30789742875'}) }}

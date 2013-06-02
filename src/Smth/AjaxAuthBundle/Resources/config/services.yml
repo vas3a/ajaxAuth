@@ -1,3 +1,21 @@
 parameters:
-
+    smth_ajax_auth.handler.class: Smth\AjaxAuthBundle\Security\Authentication\AuthenticationHandler
+    smth_ajax_auth.facebook_connector.class: Smth\AjaxAuthBundle\Connector\FacebookConnector
+    smth_ajax_auth.google_connector.class: Smth\AjaxAuthBundle\Connector\GoogleConnector
 services:
+    smth_ajax_auth.handler:
+        class:  %smth_ajax_auth.handler.class%
+        arguments:  [@router]
+        tags:
+            - { name: 'monolog.logger', channel: 'security' }
+#Twig Extension
+    extension.twig.ajax_auth:
+        class: Smth\AjaxAuthBundle\Extension\AjaxAuthTwigExtension
+        arguments: [@router]
+        tags:
+            - { name: twig.extension }
+# WebServices Connectors
+    smth_ajax_auth.connector.facebook:
+        class: %smth_ajax_auth.facebook_connector.class%
+    smth_ajax_auth.connector.google:
+        class: %smth_ajax_auth.google_connector.class%

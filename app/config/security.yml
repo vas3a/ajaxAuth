@@ -34,11 +34,21 @@ security:
             pattern: ~
             anonymous: ~
             form_login:
-                check_path: /login_check
+                check_path: _ajax_auth_check
                 login_path: _ajax_auth_login
                 use_referer: true
+                remember_me: true
+                success_handler: smth_ajax_auth.handler
+                failure_handler: smth_ajax_auth.handler
+            remember_me:
+                key: %secret%
+                lifetime: 31536000
+                path: /
+                domain: ~
+                always_remember_me: false
             logout:
                 path:   _demo_logout
                 target: _demo
+
     access_control:
         - { path: ^/account, roles: ROLE_USER }

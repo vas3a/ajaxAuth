@@ -13,3 +13,8 @@ _ajax_auth_login:
     defaults: { _controller: AjaxAuthBundle:Default:index }
 _ajax_auth_check:
     pattern: /login_check
+
+_ajax_auth._connector:
+    pattern: /login/{serviceName}
+    defaults: { _controller: AjaxAuthBundle:Connector:login }
+    requirements: {_method: POST}
