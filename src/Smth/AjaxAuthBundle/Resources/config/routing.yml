@@ -1,0 +1,15 @@
+_account:
+    pattern: /account
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: AjaxAuthBundle:Default:account.html.twig
+bla:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: AjaxAuthBundle:Default:account.html.twig
+_ajax_auth_login:
+    pattern:  /login
+    defaults: { _controller: AjaxAuthBundle:Default:index }
+_ajax_auth_check:
+    pattern: /login_check

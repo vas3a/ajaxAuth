@@ -1,0 +1,3 @@
+ajax_auth:
+    resource: "@AjaxAuthBundle/Resources/config/routing.yml"
+    prefix:   /
