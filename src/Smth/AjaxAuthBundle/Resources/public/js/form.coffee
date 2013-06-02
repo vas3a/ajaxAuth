@@ -27,4 +27,4 @@ class AjaxAuthForm
 			error: (response) =>
 				console.log arguments
 
-window.formHandler = new AjaxAuthForm $ 'form'
+# window.formHandler = new AjaxAuthForm $ 'form'

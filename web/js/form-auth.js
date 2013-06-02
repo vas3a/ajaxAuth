@@ -50,6 +50,4 @@
 
   })();
 
-  window.formHandler = new AjaxAuthForm($('form'));
-
 }).call(this);

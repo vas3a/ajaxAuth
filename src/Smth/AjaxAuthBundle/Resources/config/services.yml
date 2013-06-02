@@ -1,15 +1,3 @@
 parameters:
-    ajax_auth.user.provider.class: Smth\AjaxAuthBundle\Security\Authentication\UserProvider
 
 services:
-    ajax_auth.user.provider:
-        class: %ajax_auth.user.provider.class%
-        arguments: [@doctrine.orm.entity_manager]
-
-    ajax_auth.security.authentication.provider:
-        class:  Smth\AjaxAuthBundle\Security\Authentication\AuthenticationProvider
-        arguments: ["", "@security.user_checker", "", "@security.encoder_factory"]
-
-    ajax.security.authentication.listener:
-        class:  Smth\AjaxAuthBundle\Security\Authentication\AuthenticationListener
-        arguments: ["@security.context", "@security.authentication.manager"]
