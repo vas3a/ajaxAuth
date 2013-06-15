@@ -4,6 +4,20 @@
     "autoload": {
         "psr-0": { "": "src/" }
     },
+    "repositories":[
+        {
+            "type": "package",
+            "package": {
+                "name": "smth/ajax-auth-bundle",
+                "version": "dev-master",
+                "source": {
+                    "url": "https://github.com/vas3a/ajaxAuth.git",
+                    "type": "git",
+                    "reference":"master"
+                }
+            }
+        }
+    ],
     "require": {
         "php": ">=5.3.3",
         "symfony/symfony": "2.2.*",
