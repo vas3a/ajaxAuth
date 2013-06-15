@@ -1,3 +1,7 @@
+smth_test:
+    resource: "@SmthTestBundle/Resources/config/routing.yml"
+    prefix:   /
+
 ajax_auth:
     resource: "@AjaxAuthBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /connect
