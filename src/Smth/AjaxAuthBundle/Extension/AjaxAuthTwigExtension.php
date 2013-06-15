@@ -33,7 +33,8 @@ class AjaxAuthTwigExtension
 	}
 
 	public function getAjaxAuthScript(\Twig_Environment $environment, $options = ''){
-		$fb = $g = array('includeFacebook'=>false,'includeGoogle'=>false);
+		$fb = array('includeFacebook'=>false);
+		$g = array('includeGoogle'=>false);
 
 		if($options['facebook'])
 			$fb = array(

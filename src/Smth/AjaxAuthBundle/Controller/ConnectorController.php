@@ -8,20 +8,19 @@ use Symfony\Component\HttpFoundation\Response,
 	Symfony\Component\HttpFoundation\Request,
 	Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
-use Smth\AjaxAuthBundle\Entity\User;
-
 class ConnectorController extends Controller
 {
-	public function loginAction(Request $request, $serviceName)
+	public function connectAction(Request $request, $serviceName)
 	{
 		$service = $this->get('smth_ajax_auth.connector.'.$serviceName);		
 		$user = $service->getUser($token = $request->request->get('token'));
 
-		$authService = $this->get('smth.security.authentication');
+		$userRegistrationHandlerClass = $this->container
+			->getParameter('ajax_auth.user_registration.handler');
 
-		$ur = $this->getDoctrine()->getRepository('AjaxAuthBundle:User');
-		$user = $ur->findOneByUsername('vasea');
+		$userRegistrationHandlerService = $this->get($userRegistrationHandlerClass);
+		$userRegistrationHandlerService->handleUser($user);
 
-		return $authService->authenticateUser($user);
+		return $userRegistrationHandlerService->getResponse();
 	}
 }

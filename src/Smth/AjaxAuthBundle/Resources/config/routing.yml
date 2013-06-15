@@ -1,20 +1,4 @@
-_account:
-    pattern: /account
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: AjaxAuthBundle:Default:account.html.twig
-bla:
-    pattern: /
-    defaults:
-        _controller: FrameworkBundle:Template:template
-        template: AjaxAuthBundle:Default:account.html.twig
-_ajax_auth_login:
-    pattern:  /login
-    defaults: { _controller: AjaxAuthBundle:Default:index }
-_ajax_auth_check:
-    pattern: /login_check
-
 _ajax_auth._connector:
-    pattern: /login/{serviceName}
-    defaults: { _controller: AjaxAuthBundle:Connector:login }
+    pattern: /{serviceName}
+    defaults: { _controller: AjaxAuthBundle:Connector:connect }
     requirements: {_method: POST}

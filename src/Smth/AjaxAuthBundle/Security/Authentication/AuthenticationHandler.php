@@ -18,10 +18,14 @@ implements AuthenticationSuccessHandlerInterface,
 		   AuthenticationFailureHandlerInterface
 {
 	private $router;
+	private $defaultRedirectPath;
+	private $alwaysUseDefaultPath;
  
-	public function __construct(Router $router)
+	public function __construct(Router $router, $defaultRedirectPath, $alwaysUseDefaultPath)
 	{
-		$this->router = $router;
+		$this->router 				= $router;
+		$this->defaultRedirectPath  = $defaultRedirectPath;
+		$this->alwaysUseDefaultPath = $alwaysUseDefaultPath;
 	}
  
 	public function onInteractiveLoginEvent(InteractiveLoginEvent $event)
@@ -32,12 +36,13 @@ implements AuthenticationSuccessHandlerInterface,
 
 	public function onAuthenticationSuccess(Request $request, TokenInterface $token)
 	{
-		if ($targetPath = $request->getSession()->get('_security.target_path'))
+		if (
+			($targetPath = $request->getSession()->get('_security.secured_area.target_path'))
+			&& !$this->alwaysUseDefaultPath
+		)
 			$url = $targetPath;
 		else // Otherwise, redirect him to wherever you want
-			$url = $this->router->generate('bla', array(
-				'nickname' => $token->getUser()->getUsername()
-			));
+			$url = $this->router->generate($this->defaultRedirectPath);
 
 		if ($request->isXmlHttpRequest()) {
 			$result = array('result' => 'login_succeded', 'redirect_url' => $url);

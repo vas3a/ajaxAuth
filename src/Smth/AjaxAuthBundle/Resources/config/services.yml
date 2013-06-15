@@ -1,15 +1,26 @@
 parameters:
     smth_ajax_auth.handler.class: Smth\AjaxAuthBundle\Security\Authentication\AuthenticationHandler
+    smth.security.authentication.class: Smth\AjaxAuthBundle\Security\Authentication\UserAuthentication
+    smth.security.registration.class: Smth\AjaxAuthBundle\Security\Authentication\UserRegistrationHandler
     smth_ajax_auth.facebook_connector.class: Smth\AjaxAuthBundle\Connector\FacebookConnector
     smth_ajax_auth.google_connector.class: Smth\AjaxAuthBundle\Connector\GoogleConnector
-    smth.security.authentication.class: Smth\AjaxAuthBundle\Security\Authentication\UserAuthentication
 services:
+# Authentication Success Handler
     smth_ajax_auth.handler:
         class:  %smth_ajax_auth.handler.class%
-        arguments:  [@router]
+        arguments:  
+            router                  : @router
+            default_redirect_path   : ''
+            always_use_default_path : ''
         tags:
             - { name: 'monolog.logger', channel: 'security' }
             - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLoginEvent }
+# User Registration Handler
+    ajax_auth.user_registration.handler:
+        abstract: true
+        class: %smth.security.registration.class%
+        calls:
+            - [setAuthService, [@smth.security.authentication]]
 # Twig Extension
     extension.twig.ajax_auth:
         class: Smth\AjaxAuthBundle\Extension\AjaxAuthTwigExtension

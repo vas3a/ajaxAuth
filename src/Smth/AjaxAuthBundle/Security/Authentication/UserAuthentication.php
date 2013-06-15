@@ -10,15 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerAware,
 use Symfony\Component\HttpFoundation\Response,
 	Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices;
 
-class UserAuthentication
-	extends ContainerAware
+class UserAuthentication extends ContainerAware
 {
-	private $successHandler;
-
-	public function setSuccessHandler($authenticationSuccessHandler)
-	{
-		$this->successHandler = $authenticationSuccessHandler;
-	}
 	/**
 	 * Authenticate a user with Symfony Security
 	 * 
@@ -56,7 +49,7 @@ class UserAuthentication
 		// $providerKey = 'secured_area';
 		// $securityKey = $this->container->getParameter('secret');
 		// $remembermeParameters = $this->container->getParameter('remember_me_params');
-		// $userProvider = $this->container->get('blogvio_user_provider');
+		// $userProvider = $this->container->get('user_provider');
 
 		// $rememberMeService = new TokenBasedRememberMeServices(
 		// 	array($userProvider), 
