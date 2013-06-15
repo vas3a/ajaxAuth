@@ -1,0 +1,17 @@
+_account:
+    pattern: /account
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: SmthTestBundle:Default:account.html.twig
+bla:
+    pattern: /
+    defaults:
+        _controller: FrameworkBundle:Template:template
+        template: SmthTestBundle:Default:bla.html.twig
+
+_login:
+    pattern:  /login
+    defaults: { _controller: SmthTestBundle:Default:index }
+
+_login_check:
+    pattern: /login_check

@@ -1,0 +1,9 @@
+parameters:
+    smth_test.register.handler.class: Smth\TestBundle\Authentication\UserRegisterHandler
+
+services:
+    smth_test.register.handler:
+        class: %smth_test.register.handler.class%
+        parent: ajax_auth.user_registration.handler
+        calls:
+            - [setDoctrine, [@doctrine]]
