@@ -2,10 +2,17 @@ jms_security_extra:
     secure_all_services: false
     expressions: true
 
+###
+ajax_auth:
+    default_redirect_path     : bla
+    always_use_default_path   : false
+    user_registration_handler : smth_test.register.handler
+###
+
 security:
     encoders:
         Symfony\Component\Security\Core\User\User: plaintext
-        Smth\AjaxAuthBundle\Entity\User: plaintext
+        Smth\TestBundle\Entity\User: plaintext
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER
@@ -19,7 +26,7 @@ security:
                 users:
                     admin: { password: testpass123!, roles: [ 'ROLE_ADMIN' ] }
         entity_provider:
-            entity: {class: AjaxAuthBundle:User, property: username}
+            entity: {class: SmthTestBundle:User, property: username}
 
     firewalls:
         dev:
@@ -34,8 +41,8 @@ security:
             pattern: ~
             anonymous: ~
             form_login:
-                check_path: _ajax_auth_check
-                login_path: _ajax_auth_login
+                check_path: _login_check
+                login_path: _login
                 use_referer: true
                 remember_me: true
                 success_handler: smth_ajax_auth.handler
